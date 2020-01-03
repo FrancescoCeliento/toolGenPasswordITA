@@ -89,11 +89,22 @@ function getspecials() {
 
 function generateHumanPassword($lenght) {
 
-   $str1 = upperacharacter(getRandomLine('661562_parole_italiane.txt',$lenght-3));
-   $str2 = getspecials();
-   $str3 = rand (10, 99);
+   $pass = array();
+   $password = "";
 
-   return $str1.$str2.$str3;
+   $pass[0] = upperacharacter(getRandomLine('661562_parole_italiane.txt',$lenght-5));
+   $pass[1] = getspecials();
+   $pass[2] = getspecials();
+   $pass[3] = rand (10, 99);
+   $pass[4] = getspecials();
+
+   shuffle($pass);
+
+   foreach ($pass as $passkey) {
+      $password = $password.$passkey;
+   }
+
+   return $password;
 
 }
 
@@ -112,4 +123,4 @@ function generateHumanPassword($lenght) {
 echo "La tua nuova password semplice <input type='text' value='".generateHumanPassword($lenght)."' readonly size='".($lenght+10)."'>";
 echo "<br /><br />";
 echo "La tua nuova password complicata <input type='text' value='".generateStrongPassword($lenght)."' readonly size='".($lenght+10)."'>";
-?>
+?>	
