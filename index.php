@@ -1,3 +1,16 @@
+<script>
+function copia(testo) {
+    var input = document.createElement('input');
+    var area = document.getElementById(testo).value;
+    input.setAttribute('value', area);
+    document.body.appendChild(input);
+    input.select();
+    var risultato = document.execCommand('copy');
+    document.body.removeChild(input);
+    return risultato;
+ }
+</script>
+
 <?PHP
 // Generates a strong password of N length containing at least one lower case letter,
 // one uppercase letter, one digit, and one special character. The remaining characters
@@ -92,7 +105,7 @@ function generateHumanPassword($lenght) {
    $pass = array();
    $password = "";
 
-   $pass[0] = upperacharacter(getRandomLine('661562_parole_italiane.txt',$lenght-5));
+   $pass[0] = upperacharacter(getRandomLine('661562_parole_italiane.txt',$lenght-4));
    $pass[1] = getspecials();
    $pass[2] = getspecials();
    $pass[3] = rand (10, 99);
@@ -120,7 +133,8 @@ function generateHumanPassword($lenght) {
 </form>
 
 <?php
-echo "La tua nuova password semplice <input type='text' value='".generateHumanPassword($lenght)."' readonly size='".($lenght+10)."'>";
+echo "La tua nuova password semplice <input id='pass1' type='text' value='".generateHumanPassword($lenght)."' readonly size='".($lenght+10)."'>";
+?><button onclick="copia('pass1')">copia</button><?php
 echo "<br /><br />";
-echo "La tua nuova password complicata <input type='text' value='".generateStrongPassword($lenght)."' readonly size='".($lenght+10)."'>";
-?>	
+echo "La tua nuova password complicata <input id='pass2' type='text' value='".generateStrongPassword($lenght)."' readonly size='".($lenght+10)."'>";
+?><button onclick="copia('pass2')">copia</button>
